@@ -23,3 +23,7 @@ SeaCreatures:
   
 SimplePCreature:
   smaller simplified version of SeaCreatures
+
+SinTanPerlinExperiment:
+  another very simple code that has many different results, depending on the settings. Generates interesting forms with a characteristic
+  falling sand effect
