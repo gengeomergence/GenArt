@@ -10,20 +10,17 @@ with questions!
 DESCRIPTIONS OF FILES:
 
 ## PerlinBrushStroke:
-  > basically rotational perlin noise. Spend some time messing with the settings, 
+  > Basically rotational perlin noise. Spend some time messing with the settings, 
   > there are so many different results that can come from this simple code
 
 ## noiseObject:
-  > this sketch uses bezier curves and perlin noise to generate symmetrical objects with bezier curves shooting out, 
+  > This sketch uses bezier curves and perlin noise to generate symmetrical objects with bezier curves shooting out, 
   > not really sure how to explain it, best to experiment with it
 
 ## SeaCreatures:
-  generate perlin noise shapes that resemble life, specifically alien ocean life. Designed to look like infrared images taken from 
-  an ocean world somewhere in the cosmos. Almost completely generative
+  > Generate perlin noise shapes that resemble life, specifically alien ocean life. 
+  > Designed to look like infrared images taken from an ocean world somewhere in the cosmos.
   
-## SimplePCreature:
-  smaller simplified version of SeaCreatures
-
 ## SinTanPerlinExperiment:
-  another very simple code that has many different results, depending on the settings. Generates interesting forms with a characteristic
-  falling sand effect
+  > Another very simple code that has many different results, depending on the settings. 
+  > Generates interesting forms with a characteristic falling sand effect
