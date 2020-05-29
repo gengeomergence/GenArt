@@ -17,3 +17,7 @@ noiseObject:
   this sketch uses bezier curves and perlin noise to generate symmetrical objects with bezier curves shooting out, not really sure how
   to explain it, best to experiment with it
 
+SeaCreatures:
+  generate perlin noise shapes that resemble life, specifically alien ocean life. Designed to look like infrared images taken from 
+  an ocean world somewhere in the cosmos. Almost completely generative
+  
