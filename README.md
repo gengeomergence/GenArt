@@ -13,14 +13,14 @@ DESCRIPTIONS OF FILES:
   > Basically rotational perlin noise. Spend some time messing with the settings, 
   > there are so many different results that can come from this simple code
 
-## noiseObject:
+## [noiseObject:](noiseObject.pyde)
   > This sketch uses bezier curves and perlin noise to generate symmetrical objects with bezier curves shooting out, 
   > not really sure how to explain it, best to experiment with it
 
-## SeaCreatures:
+## [SeaCreature:](SeaCreature.pyde)
   > Generate perlin noise shapes that resemble life, specifically alien ocean life. 
   > Designed to look like infrared images taken from an ocean world somewhere in the cosmos.
   
-## SinTanPerlinExperiment:
+## [Sin, Tan, and Perlin:](SinTanPerlinExperiment.pyde)
   > Another very simple code that has many different results, depending on the settings. 
   > Generates interesting forms with a characteristic falling sand effect
