@@ -18,7 +18,8 @@ DESCRIPTIONS OF FILES:
   > not really sure how to explain it, best to experiment with it
 
 ## [SeaCreature:](SeaCreature.pyde)
-<p align="center"><img src="https://github.com/gengeomergence/Images/blob/master/SeaCreatureE.png" alt="dots" width="90%"></p>
+<p align="center"><img src="https://github.com/gengeomergence/Images/blob/master/SeaCreatureE.png" width="90%"></p>
+
   > Generate perlin noise shapes that resemble life, specifically alien ocean life. 
   > Designed to look like infrared images taken from an ocean world somewhere in the cosmos.
   
