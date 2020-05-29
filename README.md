@@ -9,7 +9,7 @@ with questions!
 
 DESCRIPTIONS OF FILES:
 
-## [PerlinBrushStroke:](GenArt/PerlinBrushStroke.pyde)
+## [PerlinBrushStroke:](PerlinBrushStroke.pyde)
   > Basically rotational perlin noise. Spend some time messing with the settings, 
   > there are so many different results that can come from this simple code
 
