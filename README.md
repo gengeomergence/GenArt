@@ -21,3 +21,5 @@ SeaCreatures:
   generate perlin noise shapes that resemble life, specifically alien ocean life. Designed to look like infrared images taken from 
   an ocean world somewhere in the cosmos. Almost completely generative
   
+SimplePCreature:
+  smaller simplified version of SeaCreatures
