@@ -29,4 +29,4 @@ OR
       norm(value, min, max)
       returns value mapped in range(0, 1)
       
-      
+Add one circle, high transparancy, same color as atmosphere, over entire planet
