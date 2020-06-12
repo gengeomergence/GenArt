@@ -36,7 +36,6 @@ class PlanetGen(object):
         self.ystart = self.ypos - self.rad
         self.yend = height
         
-  
     
   def atmoGlow(self):
     pushStyle()
@@ -46,23 +45,18 @@ class PlanetGen(object):
     bl = blue(self.atmoCol)
     fill(re, gr, bl, 10)
     r = self.dia
-    
     for _ in range(self.atmoAmt):
       circle(self.xpos, self.ypos, r)
       r += 1
-      
     popStyle()
     
-  
-  
+    
   def iniPlanet(self):
     pushStyle()
     fill(255)
     noStroke()
     circle(self.xpos, self.ypos, self.dia)
     popStyle()
-    
-    
     
    
   def terrainG(self):
