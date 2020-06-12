@@ -1,6 +1,6 @@
 class PlanetGen(object):
   
-  def __init__(self, xpos, ypos, dia, nscale1, nscale2Min, nscale2Max, colArray, atmoCol, atmoAmt):
+  def __init__(self, xpos, ypos, dia, nscale1=0.003, nscale2Min=0.001, nscale2Max=0.01, colArray, atmoCol, atmoAmt=50):
     self.xpos = xpos
     self.ypos = ypos
     self.dia = dia
@@ -15,7 +15,6 @@ class PlanetGen(object):
     self.lighty = self.ypos + self.rad
     self.atmoAmt = atmoAmt
     self.atmoRange = atmoAmt
-    
     
     if (self.xpos + self.rad) < width and (self.xpos - self.rad) > 0:
         self.xstart = self.xpos - self.rad
@@ -40,7 +39,6 @@ class PlanetGen(object):
   
     
   def atmoGlow(self):
-    
     pushStyle()
     noStroke()
     re = red(self.atmoCol)
@@ -50,7 +48,6 @@ class PlanetGen(object):
     r = self.dia
     
     for _ in range(self.atmoAmt):
-    
       circle(self.xpos, self.ypos, r)
       r += 1
       
@@ -59,7 +56,6 @@ class PlanetGen(object):
   
   
   def iniPlanet(self):
-    
     pushStyle()
     fill(255)
     noStroke()
@@ -70,7 +66,6 @@ class PlanetGen(object):
     
    
   def terrainG(self):
-  
     loadPixels()
     
     for i in range(self.xstart, self.xend):
