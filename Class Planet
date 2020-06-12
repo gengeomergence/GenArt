@@ -1,0 +1,124 @@
+class PlanetGen(object):
+  
+  def __init__(self, xpos, ypos, dia, nscale1, nscale2Min, nscale2Max, colArray, atmoCol, atmoAmt):
+    self.xpos = xpos
+    self.ypos = ypos
+    self.dia = dia
+    self.colArray = colArray
+    self.atmoCol = atmoCol
+    self.nscale1 = nscale1
+    self.nscale2Min = nscale2Min
+    self.nscale2Max = nscale2Max
+    self.rad = self.dia/2
+    self.scaleStart = self.ypos + self.rad/2
+    self.lightx = self.xpos - self.rad
+    self.lighty = self.ypos + self.rad
+    self.atmoAmt = atmoAmt
+    self.atmoRange = atmoAmt
+    
+    
+    if (self.xpos + self.rad) < width and (self.xpos - self.rad) > 0:
+        self.xstart = self.xpos - self.rad
+        self.xend = self.xpos + self.rad
+    elif (self.xpos - self.rad) < 0:
+        self.xstart = 0
+        self.xend = self.xpos + self.rad
+    else:
+        self.xstart = self.xpos - self.rad
+        self.xend = width
+
+    if (self.ypos + self.rad) < height and (self.ypos - self.rad) > 0:
+        self.ystart = self.ypos - self.rad
+        self.yend = self.ypos + self.rad
+    elif (self.ypos - self.rad) < 0:
+        self.ystart = 0
+        self.yend = self.ypos + self.rad
+    else:
+        self.ystart = self.ypos - self.rad
+        self.yend = height
+        
+  
+    
+  def atmoGlow(self):
+    
+    pushStyle()
+    noStroke()
+    re = red(self.atmoCol)
+    gr = green(self.atmoCol)
+    bl = blue(self.atmoCol)
+    fill(re, gr, bl, 10)
+    r = self.dia
+    
+    for _ in range(self.atmoAmt):
+    
+      circle(self.xpos, self.ypos, r)
+      r += 1
+      
+    popStyle()
+    
+  
+  
+  def iniPlanet(self):
+    
+    pushStyle()
+    fill(255)
+    noStroke()
+    circle(self.xpos, self.ypos, self.dia)
+    popStyle()
+    
+    
+    
+   
+  def terrainG(self):
+  
+    loadPixels()
+    
+    for i in range(self.xstart, self.xend):
+      for j in range(self.ystart, self.yend):
+        
+        inde = (j*width) + i
+    
+        if pixels[inde] == -1:  
+        
+          light = norm(dist(self.lightx, self.lighty, i, j), 0, self.dia)
+          detail = map(abs(self.scaleStart - j), 0, self.rad, self.nscale2Min, self.nscale2Max)
+        
+          ni= noise(i * self.nscale1, j * self.nscale1)
+          mi= map(ni 0, 1, 1000, 1000 + self.dia)
+        
+          n = noise(mi*detail, mi*detail)
+          m = map(n, 0, 1, 0, 170)
+          
+          if m < 10:
+            col = lerpColor(self.coArray[0], self.colArray[1], light)
+          elif 20 <= m < 30:
+            col = lerpColor(self.colArray[0], self.colArray[2], light)
+          elif 30 <= m < 40:
+            col = lerpColor(self.colArray[0], self.colArray[3], light)
+          elif 40 <= m < 50:
+            col = lerpColor(self.colArray[0], self.colArray[4], light)
+          elif 50 <= m < 60:
+            col = lerpColor(self.colArray[0], self.colArray[5], light)
+          elif 60 <= m < 70:
+            col = lerpColor(self.colArray[1], self.colArray[2], light)
+          elif 70 <= m < 80:
+            col = lerpColor(self.colArray[1], self.colArray[3], light)
+          elif 80 <= m < 90:
+            col = lerpColor(self.colArray[1], self.colArray[4], light)
+          elif 90 <= m < 100:
+            col = lerpColor(self.colArray[1], self.colArray[5], light)
+          elif 100 <= m < 110:
+            col = lerpColor(self.colArray[2], self.colArray[3], light)
+          elif 110 <= m < 120:
+            col = lerpColor(self.colArray[2], self.colArray[4], light)
+          elif 120 <= m < 130:
+            col = lerpColor(self.colArray[2], self.colArray[5], light)
+          elif 130 <= m < 140:
+            col = lerpColor(self.colArray[3], self.colArray[4], light)
+          elif 150 <= m < 160:
+            col = lerpColor(self.colArray[3], self.colArray[5], light)
+          else:
+            col = lerpColor(self.colArray[4], self.colArray[5], light)
+            
+    updatePixels()
+    
