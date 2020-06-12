@@ -1,6 +1,6 @@
 class PlanetGen(object):
   
-  def __init__(self, xpos, ypos, dia, nscale1=0.003, nscale2Min=0.001, nscale2Max=0.01, colArray, atmoCol, atmoAmt=50):
+  def __init__(self, xpos, ypos, dia, colArray, atmoCol=color(0), nscale1=0.003, nscale2Min=0.001, nscale2Max=0.01, atmoAmt=50):
     self.xpos = xpos
     self.ypos = ypos
     self.dia = dia
@@ -9,12 +9,14 @@ class PlanetGen(object):
     self.nscale1 = nscale1
     self.nscale2Min = nscale2Min
     self.nscale2Max = nscale2Max
+    self.atmoAmt = atmoAmt
+    self.atmoRange = atmoAmt
+    
     self.rad = self.dia/2
     self.scaleStart = self.ypos + self.rad/2
     self.lightx = self.xpos - self.rad
     self.lighty = self.ypos + self.rad
-    self.atmoAmt = atmoAmt
-    self.atmoRange = atmoAmt
+
     
     if (self.xpos + self.rad) < width and (self.xpos - self.rad) > 0:
         self.xstart = self.xpos - self.rad
