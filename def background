@@ -1,0 +1,30 @@
+from random import choice
+
+def spaceBG(starC, nebCol=color(0, 0, 0), starChance=1000, detail=10, nsca=0.003):
+  
+  c1 = color(0, 0, 0)
+  c2 = nebCol
+  noiseDetail(detail)
+  
+  chance = []
+  for _ in range(starChance):
+    chance.append(0)
+  chance.append(1)
+  
+  loadPixels()
+  
+  for i in range(width):
+    for j in range(height):
+    
+      inde = (j*width)+i
+      
+      n  = noise(i*nsca, j*nsca)
+      c = choice(chance)
+      if c == 1:
+        col = color(255)
+      else:
+        col = lerpColor(c1, c2, n)
+      
+      pixels[inde] = col
+      
+  updatePixels()
