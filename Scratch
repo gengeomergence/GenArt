@@ -1,0 +1,32 @@
+sca1 = 0.003
+sca2 = 0.004
+sca3 = 0.005
+
+def setup():
+  size(1000, 1000)
+  background(0)
+  
+  noiseDetail(5)
+  
+  for x in range(width):
+    for y in range(height):
+      
+      n1 = noise(x*sca1, y*sca2)
+      m1 = map(n1, 0, 1, 1000, 2000)
+      
+      n2 = noise(m1*sca2, m1*sca2)
+      m2 = map(n2, 0, 1, 1000, 2000)
+      
+      n3 = noise(m2*sca3, m2*sca3)
+      m3 = map(n3, 0, 1, 1000, 2000)
+      or m3 = floor(map(n3, 0, 1, 0, 170)) for coloring purposes, previous for 4th noise use
+      
+OR
+      n4 = noise(m2*sca4, m3*sca4)
+      see what that looks like
+      
+      note:
+      norm(value, min, max)
+      returns value mapped in range(0, 1)
+      
+      
