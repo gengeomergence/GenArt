@@ -10,7 +10,11 @@ with questions!
 DESCRIPTIONS OF FILES:
 
 ## [Custom Pseudo Noise Donuts](Custom_PSEUDO_noise)
+<p align="center"><img src="https://github.com/gengeomergence/Images/blob/master/JNOISE_72420_10.png" width="90%"></p>
 
+  > A pseudo-noise function, driven by sine, cosine, and linear interpolation. This sketch uses the function in a flowfield 
+  > drawn inside a donut shape
+  
 ## [SeaCreature:](SeaCreature.pyde)
 <p align="center"><img src="https://github.com/gengeomergence/Images/blob/master/SeaCreatureE.png" width="90%"></p>
 
