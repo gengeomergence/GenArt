@@ -9,6 +9,8 @@ with questions!
 
 DESCRIPTIONS OF FILES:
 
+## [Custom Pseudo Noise Donuts](Custom_PSEUDO_noise)
+
 ## [SeaCreature:](SeaCreature.pyde)
 <p align="center"><img src="https://github.com/gengeomergence/Images/blob/master/SeaCreatureE.png" width="90%"></p>
 
