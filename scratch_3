@@ -21,8 +21,8 @@ def setup():
             tot = colCor(x, y, pim, 'TOTAL')
             ave = tot/3
             
-            xf = floor(noise(map(tot, 0, 255*3, 1000, 2000)*sca)*w)
-            yf = floor(noise(map(ave, 0, 255, 1000, 2000)*sca)*h)
+            xf = floor(noise(map(tot, 0, 255*3, 1000, 2000)*sca, y*sca)*w)
+            yf = floor(noise(x*sca, map(ave, 0, 255, 1000, 2000)*sca)*h)
             
             col = colCor(xf, yf, pim)
             pixels[x+y*width] = col
