@@ -1,4 +1,6 @@
-sca = 0.005
+
+sca1 = 0.01
+sca2 = 0.03
 xoff = random(-1000, 1000)
 yoff = random(-1000, 1000)
 
@@ -9,7 +11,7 @@ def setup():
     w = width
     h = height
     
-    pim = loadImage("mir.jpg")
+    pim = loadImage("cube.png")
     pim.resize(width, height)
     
     pim.loadPixels()
@@ -17,8 +19,8 @@ def setup():
     for x in range(w):
         for y in range(h):
             
-            xf = floor(jnoise(x, y, noise(x*sca, y*sca)) * w)
-            yf = floor(jnoise(y, x, noise(x*sca, y*sca)) * h)
+            xf = floor(jnoise(x, y, noise(x*sca1, y*sca1)) * w)
+            yf = floor(jnoise(y, x, noise(x*sca2, y*sca2)) * h)
 
             col = colCor(xf, yf, pim)
             pixels[x+y*width] = col
@@ -37,8 +39,8 @@ def jnoise(xi, yi, zi):
     xi += xoff
     yi += yoff
     
-    x = lerp(xi, yi, zi)
-    y = cos(radians(x))*yi
+    x = sin(radians(yi*zi))
+    y = cos(radians(xi*zi))
     
-    return norm(sin(radians(x)) + cos(radians(y)), -2, 2)
+    return norm(sin(radians(x)) * cos(radians(y)), -1, 1)
             
