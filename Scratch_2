@@ -1,125 +1,44 @@
-from PARTICLES import Particle
-from random import choice
-
-parts = []
-reps = []
-step = 1
-
-xoff = random(-5000, 5000)
-yoff = random(-5000, 5000)
-sca = 0.003
+sca = 0.005
+xoff = random(-1000, 1000)
+yoff = random(-1000, 1000)
 
 def setup():
+    
     size(500, 500)
-
-    background(0)
-
-    noFill()
-    stroke(255)
-
-    rectMode(CENTER)
-    circle(width/2, height/2, 200)
-
+    
+    w = width
+    h = height
+    
+    pim = loadImage("mir.jpg")
+    pim.resize(width, height)
+    
+    pim.loadPixels()
     loadPixels()
-    for x in range(step, width, step):
-        for y in range(step, height, step):
-            if red(pixels[x+y*width]) > 10:
-                parts.append(Particle(x, y))
-    for p in parts: p.limVel(2)
-    background(255)
-    # fill(0)
-    # noStroke()
-    # square(width/2, height/2, 100)
-    loadPixels()
-    
-    # background(0)
-    stroke(0, 50)
-    strokeWeight(2)
-    
+    for x in range(w):
+        for y in range(h):
+            
+            xf = floor(jnoise(x, y, noise(x*sca, y*sca)) * w)
+            yf = floor(jnoise(y, x, noise(x*sca, y*sca)) * h)
 
-    
-def draw():
-    for p in parts:
-        x = floor(p.pos.x)
-        y = floor(p.pos.y)
-        inde = constrain(x+y*width, 0, width*height-1)
-        
-        n = jnoise(x*sca, y*sca, noise(x*sca, y*sca))
-        ang = n*TAU*5
-        # ang = (sin(radians(x*n))+cos(radians(y*n)))*TAU
-        p.angleForce(ang, 1)
-        
-        p.move()
-        if red(pixels[inde]) > 100:
-            p.display()
-        # elif frameCount > 50: parts.remove(p)
+            col = colCor(xf, yf, pim)
+            pixels[x+y*width] = col
+    updatePixels()
 
-def keyPressed():
-    save("flowforWARP9.png")
+def colCor(x, y, img):
+    i = constrain(x+y*img.width, 0, img.width*img.height - 1)
+    
+    r = red(img.pixels[i])
+    g = green(img.pixels[i])
+    b = blue(img.pixels[i])
+    
+    return color(r, g, b)
 
 def jnoise(xi, yi, zi):
+    xi += xoff
+    yi += yoff
     
-    nx = noise(xi, yi)*1000
-    ny = noise(yi, xi)*1000
+    x = lerp(xi, yi, zi)
+    y = cos(radians(x))*yi
     
-    x = lerp(nx, ny, zi)
-    y = lerp(ny, nx, zi)
-    val = sin(radians(x+y))
-    
-    return norm(val, -1, 1)
-
-class Particle(object):
-    def __init__(self, posx, posy):
-        self.pos = PVector(posx, posy)
-        self.vel = PVector(0, 0)
-        self.acc = PVector(0, 0)
-        self.lim = 0
-    
-    def limVel(self, value):
-        self.lim = value
-        
-    def genForce(self, fx, fy):
-        force = PVector(fx, fy)
-        self.acc.add(force)
-        
-    def gravForce(self, cx, cy, strength):
-        grav = PVector(cx, cy)
-        grav.sub(self.pos)
-        grav.setMag(strength)
-        self.acc.add(grav)
-        
-    def angleForce(self, angle, strength):
-        force = PVector.fromAngle(angle)
-        force.setMag(strength)
-        self.acc.add(force)
-        
-    def move(self):
-        self.vel.add(self.acc)
-        if self.lim > 0: self.vel.limit(self.lim)
-        self.pos.add(self.vel)
-        self.acc.mult(0)
-    
-    def friction(self, val):
-        self.vel.mult(val)
-    
-      
-    def display(self):
-        point(self.pos.x, self.pos.y)
-    
-    def edge(self):
-        if self.pos.x > width: self.pos.x = 0
-        if self.pos.x < 0: self.pos.x = width
-        if self.pos.y > height: self.pos.y = 0
-        if self.pos.y < 0: self.pos.y = height
-    
-    def bounce(self):
-        if self.pos.x > width or self.pos.x < 0:
-            self.vel.x *= -1.5
-            if self.pos.x > width: self.pos.x = width
-            else: self.pos.x = 0
-        if self.pos.y > height or self.pos.y < 0:
-            self.vel.y *= -1.5
-            if self.pos.y > height: self.pos.y = height
-            else: self.pos.y = 0
-        
-        
+    return norm(sin(radians(x)) + cos(radians(y)), -2, 2)
+            
