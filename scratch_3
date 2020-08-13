@@ -1,0 +1,50 @@
+sca1 = 0.01
+sca = 0.003
+xoff = random(-1000, 1000)
+yoff = random(-1000, 1000)
+
+def setup():
+    
+    size(500, 500)
+    
+    w = width
+    h = height
+    
+    pim = loadImage("cube.png")
+    pim.filter(BLUR, 10)
+    pim.resize(width, height)
+    
+    pim.loadPixels()
+    loadPixels()
+    for x in range(w):
+        for y in range(h):
+            tot = colCor(x, y, pim, 'TOTAL')
+            ave = tot/3
+            
+            xf = floor(noise(map(tot, 0, 255*3, 1000, 2000)*sca)*w)
+            yf = floor(noise(map(ave, 0, 255, 1000, 2000)*sca)*h)
+            
+            col = colCor(xf, yf, pim)
+            pixels[x+y*width] = col
+    updatePixels()
+
+def colCor(x, y, img, type='COLOR'):
+    i = constrain(x+y*img.width, 0, img.width*img.height - 1)
+    
+    r = red(img.pixels[i])
+    g = green(img.pixels[i])
+    b = blue(img.pixels[i])
+    if type == 'COLOR':
+        return color(r, g, b)
+    elif type == 'TOTAL':
+        return r+g+b
+
+def jnoise(xi, yi, zi):
+    xi += xoff
+    yi += yoff
+    
+    x = sin(radians(yi*zi))
+    y = cos(radians(xi*zi))
+    
+    return norm(sin(radians(x)) * cos(radians(y)), -1, 1)
+            
