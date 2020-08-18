@@ -1,0 +1,80 @@
+from GOL import Life
+ltry = Life(0, 3, 4, 500, 500, 10)
+
+def setup():
+    size(500, 500)
+    background(255)
+    ltry.initialize()
+    
+def draw():
+    background(255)
+    ltry.gridspace()
+    ltry.check()
+    
+________________________________________
+from random import choice
+opt = [0, 1]
+
+class Life(object):
+    def __init__(self, state, lifeRule, deathRule, grid_width, grid_height, grid_size):
+        self.state = state
+        self.lifeRule = lifeRule
+        self.deathRule = deathRule
+        self.grid_width = grid_width
+        self.grid_height = grid_height
+        self.grid_size = grid_size
+        self.ldArray = []
+        self.actWidth = self.grid_width/self.grid_size
+        self.asize = self.actWidth * (self.grid_height/self.grid_size)
+        for _ in range(self.asize):
+            self.ldArray.append(0)
+
+    def initialize(self):
+        for i in range(len(self.ldArray)):
+            c = choice(opt)
+            self.ldArray[i] = c
+            
+    def gridspace(self):
+        noFill()
+        noStroke()
+        # stroke(255)
+        # strokeWeight(1)
+        i = 0
+        for y in range(0, self.grid_height, self.grid_size):
+            for x in range(0, self.grid_width, self.grid_size):
+                if self.ldArray[i] == 1: fill(0)
+                else: fill(255)
+                square(x, y, self.grid_size)
+                i += 1
+
+    def check(self):
+        count = 0
+        i = 0
+        for state in self.ldArray:
+            around = [i - self.actWidth - 1,
+                      i - self.actWidth,
+                      i - self.actWidth + 1,
+                      i - 1,
+                      i + 1,
+                      i + self.actWidth - 1,
+                      i + self.actWidth,
+                      i + self.actWidth + 1]
+            ai = 0
+            for a in around:
+                if a <= 0 or a >= self.asize:
+                    around[ai] = i
+                ai += 1
+            
+            for a in around:
+                if self.ldArray[a] == 1:
+                    count += 1
+            
+            if self.ldArray[i] == 1:
+                if count >= self.deathRule: self.ldArray[i] = 0
+            elif self.ldArray[i] == 0:
+                if count <= self.lifeRule: self.ldArray[i] = 1
+            
+            i += 1
+            count = 0
+        
+            
