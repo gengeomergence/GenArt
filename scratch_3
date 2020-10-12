@@ -1,50 +1,33 @@
-sca1 = 0.01
-sca = 0.003
-xoff = random(-1000, 1000)
-yoff = random(-1000, 1000)
-
-def setup():
+class Vec(object):
+    def __init__(self, ix, iy):
+        self.x = ix
+        self.y = iy
     
-    size(500, 500)
+    def vecAdd(self, nvec):
+        self.x += nvec.x
+        self.y += nvec.y
+        
+    def scalMult(self, scal):
+        self.x *= scal
+        self.y *= scal
     
-    w = width
-    h = height
+    def vecFromAngle(self, angle, strength=1):
+        self.x = strength*cos(angle)
+        self.y = strength*sin(angle)
     
-    pim = loadImage("cube.png")
-    pim.filter(BLUR, 10)
-    pim.resize(width, height)
+    def magnitude(self):
+        return sqrt(sq(self.x) + sq(self.y))
     
-    pim.loadPixels()
-    loadPixels()
-    for x in range(w):
-        for y in range(h):
-            tot = colCor(x, y, pim, 'TOTAL')
-            ave = tot/3
-            
-            xf = floor(noise(map(tot, 0, 255*3, 1000, 2000)*sca, y*sca)*w)
-            yf = floor(noise(x*sca, map(ave, 0, 255, 1000, 2000)*sca)*h)
-            
-            col = colCor(xf, yf, pim)
-            pixels[x+y*width] = col
-    updatePixels()
-
-def colCor(x, y, img, type='COLOR'):
-    i = constrain(x+y*img.width, 0, img.width*img.height - 1)
+    def vecSub(self, nvec):
+        self.x -= nvec.x
+        self.y -= nvec.y
     
-    r = red(img.pixels[i])
-    g = green(img.pixels[i])
-    b = blue(img.pixels[i])
-    if type == 'COLOR':
-        return color(r, g, b)
-    elif type == 'TOTAL':
-        return r+g+b
-
-def jnoise(xi, yi, zi):
-    xi += xoff
-    yi += yoff
+    def vecNorm(self):
+        h = self.magnitude()
+        self.x /= h
+        self.y /= h
     
-    x = sin(radians(yi*zi))
-    y = cos(radians(xi*zi))
-    
-    return norm(sin(radians(x)) * cos(radians(y)), -1, 1)
-            
+    def vecSetMag(self, val):
+        self.vecNorm()
+        self.x *= val
+        self.y *= val
