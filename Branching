@@ -1,0 +1,68 @@
+
+w = 1000
+h = 1000
+dia = 5
+step = 5
+
+trees = []
+
+def setup():
+    global t, pg
+    size(w, h)
+    pg = createGraphics(w, h)
+    pg.beginDraw()
+    pg.background(255)
+    pg.stroke(0)
+    pg.strokeWeight(5)
+    pg.endDraw()
+    
+    trees.append(Tree(w/2, h/2, random(TAU)))
+
+def draw():
+    global t
+    image(pg, 0, 0)
+    pg.loadPixels()
+    pg.beginDraw()
+    for t in trees:
+        cx = t.x
+        cy = t.y
+        newang = t.ang + random(-TAU*0.1, TAU*0.1)
+        t.ang = newang
+        if abs(degrees(newang)-degrees(t.beginang)) > 50:
+            trees.remove(t)
+        bol = 0
+        for dis in range(5, step*5):
+            newx = dis*cos(newang)+cx
+            newy = dis*sin(newang)+cy
+            inde = floor(newx) + floor(newy) * w
+            if red(pg.pixels[inde]) < 50:
+                bol += 1
+        if bol == 0:
+            newx = step*cos(newang)+cx
+            newy = step*sin(newang)+cy
+            if dist(w/2, h/2, newx, newy) < 400:
+                pg.line(cx, cy, newx, newy)
+                t.x = newx
+                t.y = newy
+                t.beginang = newang
+            else:
+                trees.remove(t)
+        else: t.stuck += 1
+        if t.stuck > 10:
+            t = Tree(w/2, h/2, random(TAU))
+        elif floor(random(10)) == 5 and len(trees) < 500: 
+            trees.append(Tree(newx, newy, random(TAU)))
+    pg.endDraw()
+    
+    
+
+class Tree(object):
+    def __init__(self, startx, starty, startAng):
+        self.x = startx
+        self.y = starty
+        self.px = startx
+        self.py = starty
+        self.ang = startAng
+        self.beginang = startAng
+        self.stuck = 0
+    
