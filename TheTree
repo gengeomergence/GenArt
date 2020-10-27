@@ -1,0 +1,62 @@
+w = 500
+h = 500
+
+trees = []
+
+def setup():
+    global t
+    size(w, h)
+    background(255)
+    fill(0)
+    noStroke()
+    trees.append(Tree(w/2, h, 100, -0.5*PI))
+    
+def draw():
+    for t in trees:
+        if t.dia < 5: noLoop()
+        amt = map(t.dia, 100, 1, 0.005, 0.02)
+        t.head += random(-TAU*amt, TAU*amt)
+        t.display(0.5)
+        if t.life > 200:
+            xoff = t.rad*0.5*cos(t.head+(PI*0.5))
+            yoff = t.rad*0.5*sin(t.head+(PI*0.5))
+            trees.append(Tree(t.x+xoff, t.y+yoff, t.dia/2, t.head + TAU*0.05))
+            trees.append(Tree(t.x-xoff, t.y-yoff, t.dia/2, t.head -TAU*0.05))
+            trees.remove(t)
+        
+
+class Tree(object):
+    def __init__(self, ix, iy, dia, ang):
+        self.x = ix
+        self.y = iy
+        self.dia = dia
+        self.rad = dia/2
+        self.head = ang
+        self.life = 0
+    
+    def display(self, disp):
+        
+        pushMatrix()
+        translate(self.x, self.y)
+        rotate(self.head)
+        # translate(0, disp)
+        pushStyle()
+        stroke(255)
+        strokeWeight(1)
+        line(0, -self.rad, 0, self.rad)
+        popStyle()
+        circle(0, -self.rad, 4)
+        circle(0, self.rad, 4)
+        
+        for r in range(floor(random(self.rad))):
+            if floor(random(10))==5:
+                circle(0, self.rad-r, 2)
+        
+        popMatrix()
+        
+        self.x += disp*cos(self.head)
+        self.y += disp*sin(self.head)
+        self.life += 1
+        
+        
+        
