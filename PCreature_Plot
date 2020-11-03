@@ -1,0 +1,47 @@
+add_library('svg')
+
+w = 1000
+h = 1000
+
+step = 5
+maxr = 500
+off = 0
+sca = 0.003
+seed = floor(random(10000))
+
+def setup():
+    global pg
+    # size(w, h, SVG, 'pcreature.svg')
+    size(w, h)
+    background(255)
+    stroke(0)
+    noFill()
+    noiseSeed(seed)
+    textSize(20)
+    pg = createGraphics(w, h)
+    pg.beginDraw()
+    pg.background(255)
+    pg.fill(0)
+    pg.noStroke()
+    pg.endDraw()
+    noLoop()
+def draw():
+    
+    for x in range(step, w, step):
+        for y in range(step, h, step):
+            
+            nx = map(noise(x*sca, y*sca), 0, 1, 0, w)
+            ny = map(noise(y*sca, x*sca), 0, 1, 0, h)
+            si = map(dist(x, y, x, x), 0, w/3, 15, 5)
+            pg.loadPixels()
+            if brightness(pg.pixels[floor(nx)+floor(ny)*w]) > 50:
+                pg.beginDraw()
+                pg.circle(nx, ny, si*2)
+                pg.endDraw()
+                # point(nx, ny)
+                circle(nx, ny, si)
+    fill(0)
+    text("CID " + str(seed) , w/2, h-100)
+    save("NewPCreature_plot6.png")
+    print("DONE")
+    # exit()
