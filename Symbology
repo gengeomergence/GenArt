@@ -1,0 +1,67 @@
+from random import choice
+
+w = 1000
+h = 1000
+step = 250
+
+def setup():
+    size(w, h)
+    background(255)
+    stroke(0)
+    noFill()
+    for x in range(step, w, step):
+        for y in range(step, h, step):
+            ranBezier(x, y, step*.75)
+            ranCircle(x, y, step*.75)
+            ranCircle(x, y, step*.75)
+            if floor(random(5)) == 1:
+                sqLines(x, y, step*0.75)
+    
+
+def ranBezier(px, py, si):
+    nodes = []
+
+    for _ in range(4):
+        x = random(px-si/2, px+si/2)
+        y = random(py-si/2, py+si/2)
+        nodes.append(Vec(x, y))
+    p1 = nodes[0]
+    p2 = nodes[1]
+    p3 = nodes[2]
+    p4 = nodes[3]
+    bezier(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y)
+
+
+def ranCircle(px, py, si):
+    chance = floor(random(10))
+    dia = floor(random(si/6, si/3))
+    lx = random(px-si/4, px+si/4)
+    ly = random(py-si/4, py+si/4)
+    if chance == 1:
+        for r in range(1, dia/2, 1):
+            circle(lx, ly, r)
+    elif chance == 2:
+        for r in range(dia/4, dia/2, 1):
+            circle(lx, ly, r)
+    else:
+        circle(lx, ly, dia/2)
+        
+def sqLines(px, py, si):
+    points = [Vec(px-si/2, py-si/2), Vec(px+si/2, py+si/2), Vec(px+si/2, py-si/2), Vec(px-si/2, py+si/2), Vec(px, py), Vec(px, py-si/2), Vec(px, py+si/2), Vec(px+si/2, py), Vec(px-si/2, py)]
+    num = floor(random(2, 4))
+    for _ in range(num):
+        p1 = choice(points)
+        p2 = choice(points)
+        if p1.x == p2.x and p1.y == p2.y: circle(p1.x, p1.y, random(si/8, si/4))
+
+        elif floor(random(2)) == 1:
+            for m in range(5):
+                line(p1.x-m, p1.y, p2.x-m, p2.y)
+            
+        else: line(p1.x, p1.y, p2.x, p2.y)
+
+        
+class Vec(object):
+    def __init__(self, ix, iy):
+        self.x = ix
+        self.y = iy
